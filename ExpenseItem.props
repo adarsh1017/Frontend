@@ -1,0 +1,15 @@
+const ExpenseItem = (props) => {
+  const { expenseType, locationOfExpenditure, expenseAmount } = props;
+
+  return (
+    <div className="expense-item">
+      <div className="expense-item__description">
+        <h2>{expenseType}</h2>
+        <p>Location: {locationOfExpenditure}</p>
+      </div>
+      <div className="expense-item__price">{expenseAmount}</div>
+    </div>
+  );
+};
+
+export default ExpenseItem;
