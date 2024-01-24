@@ -1,0 +1,27 @@
+const handleDeleteExpense = (id) => {
+    // Filter out the expense with the specified id
+    const updatedExpenses = expenses.filter(expense => expense.id !== id);
+    // Update the state to re-render the component without the deleted expense
+    setExpenses(updatedExpenses);
+    
+    // You can also send a request to the server to delete the expense permanently
+    // For now, let's log the deleted expense id
+    console.log('Expense deleted:', id);
+  };
+
+  return (
+    <div>
+      <h1>Expense Tracker</h1>
+      <div>
+        {expenses.map(expense => (
+          <div key={expense.id} className="expense">
+            <span>{expense.description}: ${expense.amount}</span>
+            <button onClick={() => handleDeleteExpense(expense.id)}>Delete Expense</button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ExpenseList;
