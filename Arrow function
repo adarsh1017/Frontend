@@ -1,0 +1,35 @@
+
+
+Arrow Functions ( Function is replaced by const and => sign )
+
+// ExpenseDetails.js
+import React from 'react';
+
+const ExpenseDetails = (props) => {
+  const { title, amount } = props;
+
+  return (
+    <div className="expense-details">
+      <h2>{title}</h2>
+      <p>Amount: ${amount}</p>
+    </div>
+  );
+};
+
+export default ExpenseDetails;
+
+// ExpenseItem.js
+import React from 'react';
+import ExpenseDetails from './ExpenseDetails';
+import ExpenseDate from './ExpenseDate'; // Assuming you have an ExpenseDate component
+
+const ExpenseItem = (props) => {
+  return (
+    <div className='expense-item'>
+      <ExpenseDate date={props.date} />
+      <ExpenseDetails amount={props.amount} title={props.title} />
+    </div>
+  );
+};
+
+export default ExpenseItem;
