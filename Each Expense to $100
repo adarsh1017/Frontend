@@ -1,0 +1,32 @@
+import React, { useState } from 'react';
+
+const ExpenseList = () => {
+  const [expenses, setExpenses] = useState([]);
+
+  const updateExpenseAmount = (id) => {
+    setExpenses((prevExpenses) => {
+      return prevExpenses.map((expense) => {
+        if (expense.id === id) {
+          // Change the amount to 100 when the button is clicked
+          return { ...expense, amount: 100 };
+        }
+        return expense;
+      });
+    });
+  };
+
+  return (
+    <div>
+      {expenses.map((expense) => (
+        <div key={expense.id}>
+          <p>{expense.name}: ${expense.amount}</p>
+          <button onClick={() => updateExpenseAmount(expense.id)}>
+            Change Amount to $100
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default ExpenseList;
