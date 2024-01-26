@@ -1,0 +1,75 @@
+// ExpenseForm.js
+import React, { useState } from 'react';
+
+const ExpenseForm = () => {
+  const [title, setTitle] = useState('');
+  const [amount, setAmount] = useState('');
+  const [date, setDate] = useState('');
+  const [enteredTitle, setEnteredTitle] = useState('');
+  const [enteredAmount, setEnteredAmount] = useState('');
+  const [enteredDate, setEnteredDate] = useState('');
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    // Log the changes to the console
+    console.log(`${name}: ${value}`);
+
+    // Update the state based on the input name
+    switch (name) {
+      case 'title':
+        setTitle(value);
+        setEnteredTitle(value); // Update enteredTitle
+        break;
+      case 'amount':
+        setAmount(value);
+        setEnteredAmount(value); // Update enteredAmount
+        break;
+      case 'date':
+        setDate(value);
+        setEnteredDate(value); // Update enteredDate
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  
+    // Create an object with the entered data
+    const expenseData = {
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: enteredDate,
+    };
+
+    // Log the object to the console
+    console.log('Expense Data:', expenseData);
+
+    // You can add further logic here to handle the submission, like saving the data
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Expense Title:
+        <input type="text" name="title" value={title} onChange={handleInputChange} />
+      </label>
+      <br />
+      <label>
+        Expense Amount:
+        <input type="number" name="amount" value={amount} onChange={handleInputChange} />
+      </label>
+      <br />
+      <label>
+        Date:
+        <input type="date" name="date" value={date} onChange={handleInputChange} />
+      </label>
+      <br />
+      <button type="submit">Add Expense</button>
+    </form>
+  );
+};
+
+export default ExpenseForm;
