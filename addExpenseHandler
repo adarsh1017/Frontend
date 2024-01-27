@@ -1,0 +1,27 @@
+// App.js
+import React, { useState } from 'react';
+import ExpenseForm from './ExpenseForm';
+
+const App = () => {
+  const [expenses, setExpenses] = useState([]);
+
+  const addExpenseHandler = (expense) => {
+    setExpenses((prevExpenses) => [expense, ...prevExpenses]);
+  };
+
+  return (
+    <div>
+      <h1>Expense Tracker</h1>
+      <ExpenseForm addExpenseHandler={addExpenseHandler} />
+      <ul>
+        {expenses.map((expense, index) => (
+          <li key={index}>
+            {expense.title} - ${expense.amount} - {expense.date}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default App;
