@@ -1,0 +1,67 @@
+// App.js
+import React, { useState } from 'react';
+import ExpenseForm from './ExpenseForm';
+
+const App = () => {
+  const [expenses, setExpenses] = useState([]);
+
+  const addExpenseHandler = (expense) => {
+    setExpenses((prevExpenses) => [expense, ...prevExpenses]);
+  };
+
+  return (
+    <div>
+      <h1>Expense Tracker</h1>
+      <ExpenseForm addExpenseHandler={addExpenseHandler} />
+      <ul>
+        {expenses.map((expense, index) => (
+          <li key={index}>
+            {expense.title} - ${expense.amount} - {expense.date}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default App;
+
+
+//using keys
+import React, { useState } from 'react';
+
+const ExpenseList = () => {
+  const [expenses, setExpenses] = useState([]);
+
+  const updateExpenseAmount = (id) => {
+    setExpenses((prevExpenses) => {
+      return prevExpenses.map((expense) => {
+        if (expense.id === id) {
+          // Change the amount to 100 when the button is clicked
+          return { ...expense, amount: 100 };
+        }
+        return expense;
+      });
+    });
+  };
+
+  return (
+    <div>
+      {expenses.map((expense) => (
+        <div key={expense.id}>
+          <p>{expense.name}: ${expense.amount}</p>
+          <button onClick={() => updateExpenseAmount(expense.id)}>
+            Change Amount to $100
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default ExpenseList;
+
+
+
+
+
