@@ -1,0 +1,47 @@
+// App.js
+import React, { useState } from 'react';
+import ExpenseForm from './ExpenseForm';
+
+const App = () => {
+  const [expenses, setExpenses] = useState([]);
+  const [filterText, setFilterText] = useState('');
+
+  const addExpenseHandler = (expense) => {
+    setExpenses((prevExpenses) => [expense, ...prevExpenses]);
+  };
+
+  const handleFilterChange = (event) => {
+    setFilterText(event.target.value);
+  };
+
+  const filteredExpenses = expenses.filter((expense) =>
+    expense.title.toLowerCase().includes(filterText.toLowerCase())
+  );
+
+  return (
+    <div>
+      <h1>Expense Tracker</h1>
+      <ExpenseForm addExpenseHandler={addExpenseHandler} />
+
+      <div>
+        <label htmlFor="filter">Filter: </label>
+        <input
+          type="text"
+          id="filter"
+          value={filterText}
+          onChange={handleFilterChange}
+        />
+      </div>
+
+      <ul>
+        {filteredExpenses.map((expense, index) => (
+          <li key={index}>
+            {expense.title} - ${expense.amount} - {expense.date}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default App;
