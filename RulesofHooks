@@ -1,0 +1,55 @@
+import React, { useContext } from 'react';
+
+import Card from '../UI/Card/Card';
+import Button from '../UI/Button/Button'; // Import the Button component
+import AuthContext from '../../Context/Auth-Context'; // Import the AuthContext
+import classes from './Home.module.css';
+
+const Home = () => {
+  const { logoutHandler } = useContext(AuthContext); // Access the logout handler from context
+
+  return (
+    <Card className={classes.home}>
+      <h1>Welcome back!</h1>
+      <Button onClick={logoutHandler}>Logout</Button> {/* Add the Button component with the logout handler */}
+    </Card>
+  );
+};
+
+export default Home;
+//home.js
+
+
+import React, { useContext } from 'react';
+import AuthContext from '../../path/to/AuthContext'; // Import the AuthContext
+
+import classes from './Navigation.module.css';
+
+const Navigation = () => {
+  const { isLoggedIn, logoutHandler } = useContext(AuthContext); // Access authentication state and logout handler from context
+
+  return (
+    <nav className={classes.nav}>
+      <ul>
+        {isLoggedIn && (
+          <li>
+            <a href="/">Users</a>
+          </li>
+        )}
+        {isLoggedIn && (
+          <li>
+            <a href="/">Admin</a>
+          </li>
+        )}
+        {isLoggedIn && (
+          <li>
+            <button onClick={logoutHandler}>Logout</button> {/* Use logoutHandler from context */}
+          </li>
+        )}
+      </ul>
+    </nav>
+  );
+};
+
+export default Navigation;
+ //Navigation.js
