@@ -1,0 +1,130 @@
+//app.js
+// src/App.js
+
+import React, { useState, useEffect } from 'react';
+import AddProductForm from './components/AddProductForm';
+import ProductList from './components/ProductList';
+
+const App = () => {
+  // Initialize state variables
+
+  const [products, setProducts] = useState([]);
+
+  // Retrieve products from local storage on component mount
+  useEffect(() => {
+    const storedProducts = JSON.parse(localStorage.getItem('products'));
+    if (storedProducts) {
+      setProducts(storedProducts);
+    }
+  }, []);
+
+  // Function to add a new product
+  const addProduct = (newProduct) => {
+    const updatedProducts = [...products, newProduct];
+    setProducts(updatedProducts);
+    // Store updated products in local storage
+    localStorage.setItem('products', JSON.stringify(updatedProducts));
+  };
+
+  // Function to delete a product
+  const deleteProduct = (productId) => {
+    const updatedProducts = products.filter((product) => product.id !== productId);
+    setProducts(updatedProducts);
+    // Update local storage after deleting the product
+    localStorage.setItem('products', JSON.stringify(updatedProducts));
+  };
+
+  return (
+    <div>
+      <h1>Ecommerce Store - Seller Dashboard</h1>
+      <AddProductForm addProduct={addProduct} />
+      <ProductList
+        products={products.filter((product) => product.category === 'Electronic Items')}
+        category="Electronic Items"
+        deleteProduct={deleteProduct}
+      />
+      <ProductList
+        products={products.filter((product) => product.category === 'Food Items')}
+        category="Food Items"
+        deleteProduct={deleteProduct}
+      />
+      <ProductList
+        products={products.filter((product) => product.category === 'Skincare Items')}
+        category="Skincare Items"
+        deleteProduct={deleteProduct}
+      />
+    </div>
+  );
+};
+
+export default App;
+
+
+// src/components/AddProductForm.js
+
+import React, { useState } from 'react';
+
+const AddProductForm = ({ addProduct }) => {
+  const [productId, setProductId] = useState('');
+  const [productName, setProductName] = useState('');
+  const [sellingPrice, setSellingPrice] = useState('');
+  const [category, setCategory] = useState('');
+
+  const handleAddProduct = (e) => {
+    e.preventDefault();
+    // Create a new product object
+    const newProduct = {
+      id: productId,
+      name: productName,
+      price: sellingPrice,
+      category: category
+    };
+    // Call the addProduct function passed from the parent component
+    addProduct(newProduct);
+    // Clear form fields
+    setProductId('');
+    setProductName('');
+    setSellingPrice('');
+    setCategory('');
+  };
+
+  return (
+    <form onSubmit={handleAddProduct}>
+      <input
+        type="text"
+        placeholder="Product ID"
+        value={productId}
+        onChange={(e) => setProductId(e.target.value)}
+        required
+      />
+      <input
+        type="text"
+        placeholder="Product Name"
+        value={productName}
+        onChange={(e) => setProductName(e.target.value)}
+        required
+      />
+      <input
+        type="number"
+        placeholder="Selling Price"
+        value={sellingPrice}
+        onChange={(e) => setSellingPrice(e.target.value)}
+        required
+      />
+      <select
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        required
+      >
+        <option value="">Select Category</option>
+        <option value="Electronic Items">Electronic Items</option>
+        <option value="Food Items">Food Items</option>
+        <option value="Skincare Items">Skincare Items</option>
+      </select>
+      <button type="submit">Add Product</button>
+    </form>
+  );
+};
+
+export default AddProductForm;
+`````````````````````````````````````````````````````````````````````
